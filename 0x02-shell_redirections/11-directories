@@ -1,2 +1,2 @@
 #!/bin/bash
-rections# find . -type d | grep -v -x -e "\." | wc -l
+find . -type d | grep -v -x -e "\." -e "\.\." | wc -l
