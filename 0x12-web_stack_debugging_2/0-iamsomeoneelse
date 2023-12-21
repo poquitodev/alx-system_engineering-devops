@@ -1,5 +1,10 @@
-#!/usr/bin/env bash
-# A Bash script that accepts one argument
-# The script run the 'whoami' command under the user passed as an argument
+#!/bin/bash
 
+# Check if an argument is provided
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <username>"
+    exit 1
+fi
+
+# Run the whoami command under the specified user
 sudo -u "$1" whoami
