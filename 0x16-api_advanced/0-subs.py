@@ -1,29 +1,17 @@
 #!/usr/bin/python3
 """
-0-subs.py queries to https://www.reddit.com/dev/api/
+Queries the Reddit API and returns the number of total subscribers)
+ for a given subreddit
 """
+
 import requests
 
 
 def number_of_subscribers(subreddit):
-    """
-    returns the number of subscribers
-    """
-    domain = 'https://www.reddit.com'
-    path = '/r/{}/about.json'.format(subreddit)
-    url = '{}{}'.format(domain, path)
-    header = {
-        'user-agent': 'one-dope-boy',
-        'over18': 'yes'
-    }
-    response = requests.get(
-        url,
-        headers=header,
-        allow_redirects=False
-    )
-    code = response.status_code
-    if code >= 300:
+    """returns the number of subscribers for a given subreddit"""
+    if subreddit is None or type(subreddit) is not str:
         return 0
-    data = response.json().get('data')
-    subscribers = data.get('subscribers')
-    return subscribers
+    r = requests.get('http://www.reddit.com/r/{}/about.json'.format(subreddit),
+                     headers={'User-Agent': 'myBot/0.0.1'}).json()
+    subs = r.get("data", {}).get("subscribers", 0)
+    return subs
